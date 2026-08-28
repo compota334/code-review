@@ -4,7 +4,7 @@
     "name": "compota334",
     "url": "https://github.com/compota334"
   },
-  "description": "Adversarial review commands for ZCode. Parallel subagents with clean context review your recent changes for quality, bugs and vulnerabilities.",
+  "description": "Code review suite for ZCode, inspired by Claude Code's review commands: clean-context subagents, per-finding validation, and the /deep-review pipeline.",
   "plugins": [
     {
       "name": "adversarial-review",
