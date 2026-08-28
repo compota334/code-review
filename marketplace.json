@@ -1,0 +1,15 @@
+{
+  "name": "adversarial-review",
+  "owner": {
+    "name": "compota334",
+    "url": "https://github.com/compota334"
+  },
+  "description": "Adversarial review commands for ZCode. Parallel subagents with clean context review your recent changes for quality, bugs and vulnerabilities.",
+  "plugins": [
+    {
+      "name": "adversarial-review",
+      "source": "./plugins/adversarial-review",
+      "description": "Code review suite for ZCode: the /simplify, /code-review and /security-review you know from Claude Code, rebuilt and improved. Clean-context subagents review your latest diff, validators kill false positives, and /deep-review runs the whole pipeline in one command."
+    }
+  ]
+}
