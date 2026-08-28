@@ -1,6 +1,6 @@
-# adversarial-review
+# code-review
 
-adversarial-review is a code review suite for AI coding agents: the
+code-review is a review suite for AI coding agents: the
 /simplify, /code-review and /security-review you know from Claude Code,
 rebuilt for ZCode and improved. Clean-context subagents that didn't write
 the change review your latest diff, parallel validators kill false
@@ -117,8 +117,8 @@ All four commands accept a target:
 ### Option 1: From GitHub
 
 **Settings → Plugin Management → Discover → `+`** → add
-`https://github.com/compota334/adversarial-review` as a marketplace →
-install **adversarial-review** → restart ZCode (plugins resolve at startup).
+`https://github.com/compota334/code-review` as a marketplace →
+install **code-review** → restart ZCode (plugins resolve at startup).
 
 ### Option 2: From a local directory
 
