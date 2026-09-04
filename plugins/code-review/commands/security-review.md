@@ -64,6 +64,21 @@ Parse the arguments: $ARGUMENTS
   4. The full diff: `git diff --merge-base @{upstream} HEAD` (or the
      equivalent fallback; include untracked files by reading them).
 
+Worktree safety (applies to every target, including `pr` and branch ranges):
+
+- Run every git and `gh` command from the current working directory. Never
+  `cd` to another checkout or worktree of the same repository — that would
+  silently review a different branch.
+- Detect whether the current directory is a linked worktree: if
+  `git rev-parse --git-dir` returns something other than `.git` (or
+  `git worktree list` lists more than one entry), you are in one.
+- Include the working directory, `git branch --show-current` and
+  `git rev-parse HEAD` in the target summary. If the tip of the diff you are
+  about to review differs from the current HEAD, say so explicitly and ask
+  the user to confirm before launching agents.
+- Pass to the finder and every validator: "Stay inside the current working
+  directory's checkout/worktree; do not cd elsewhere in the repository."
+
 Show the user a one-line summary of the target before launching agents.
 
 ## Step 1 — Launch the finder subagent

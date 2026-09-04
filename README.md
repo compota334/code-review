@@ -112,6 +112,24 @@ All four commands accept a target:
 - **`--post`**: with a PR target, additionally publishes one consolidated
   summary comment on the PR via `gh pr comment`.
 
+## Worktree safety
+
+If your work lives in a git worktree (common with parallel agent "lanes"),
+a review command that resolves the repository "helpfully" can end up in the
+main checkout and silently review the wrong branch. Every command here is
+built to prevent that:
+
+- All git and `gh` commands run from the directory the session is in; the
+  commands explicitly forbid `cd`-ing to another checkout or worktree of
+  the same repository.
+- Before launching any agent, the command detects whether it is inside a
+  linked worktree (`git rev-parse --git-dir` / `git worktree list`) and
+  shows you the working directory, branch and HEAD it is about to review.
+- If the diff's tip doesn't match the current worktree's HEAD, the command
+  stops and asks you to confirm instead of reviewing ahead.
+- Every subagent (finders, validators, simplify agents) receives the same
+  "stay inside this worktree" instruction.
+
 ## Install
 
 ### Option 1: From GitHub

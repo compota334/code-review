@@ -39,6 +39,21 @@ Parse the arguments: $ARGUMENTS
      `git diff master...HEAD`, then `git diff HEAD~1`.
 - `--post` only has effect together with a PR number; remember it for Step 5.
 
+Worktree safety (applies to every target, including `pr` and branch ranges):
+
+- Run every git and `gh` command from the current working directory. Never
+  `cd` to another checkout or worktree of the same repository — that would
+  silently review a different branch.
+- Detect whether the current directory is a linked worktree: if
+  `git rev-parse --git-dir` returns something other than `.git` (or
+  `git worktree list` lists more than one entry), you are in one.
+- Include the working directory, `git branch --show-current` and
+  `git rev-parse HEAD` in the target summary. If the tip of the diff you are
+  about to review differs from the current HEAD, say so explicitly and ask
+  the user to confirm before launching agents.
+- Pass to every subagent: "Stay inside the current working directory's
+  checkout/worktree; do not cd elsewhere in the repository."
+
 Show the user a one-line summary of the target before launching agents. If the
 diff is very large (over ~1500 lines), pass each agent only the changed files
 relevant to its angle plus the full file list, and say so.

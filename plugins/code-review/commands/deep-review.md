@@ -40,6 +40,21 @@ Show the user a one-line summary of the target, then announce each stage as
 you start it (brief progress notes are enough; the full detail goes in the
 final summary).
 
+Worktree safety (determined once here, honored by every stage):
+
+- Run every git and `gh` command from the current working directory. Never
+  `cd` to another checkout or worktree of the same repository — that would
+  silently review (and with Stage 1, edit!) a different branch.
+- Detect whether the current directory is a linked worktree: if
+  `git rev-parse --git-dir` returns something other than `.git` (or
+  `git worktree list` lists more than one entry), you are in one.
+- Include the working directory, `git branch --show-current` and
+  `git rev-parse HEAD` in the target summary. If the tip of the diff you are
+  about to review differs from the current HEAD, say so explicitly and ask
+  the user to confirm before starting Stage 1.
+- Pass to every subagent in every stage: "Stay inside the current working
+  directory's checkout/worktree; do not cd elsewhere in the repository."
+
 ## Stage 1 — SIMPLIFY (applies changes)
 
 1. Launch **4 parallel review agents** on the diff, one per angle:
